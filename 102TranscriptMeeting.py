@@ -4,7 +4,7 @@ from dotenv import load_dotenv, find_dotenv
 _ = load_dotenv(find_dotenv())
 client = openai.OpenAI()
 
-# 1. TRANSCRIÇÃO DO ÁUDIO
+#TRANSCRIÇÃO DE AUDIO
 print("=== INICIANDO TRANSCRIÇÃO DO ÁUDIO ===")
 audio = open('Audio Exemplo.m4a', 'rb')
 transcricao = client.audio.transcriptions.create(
@@ -20,13 +20,13 @@ O fluxo de trabalho funcionará da seguinte forma:
     response_format='text'  # Usando 'text' para pegar apenas o texto transcrito
 )
 
-# Armazenando o texto transcrito em uma variável
+#ARMAZENAR ESSE AUDIO
 texto_transcrito = transcricao
 print("=== TEXTO TRANSCRITO ===")
 print(texto_transcrito)
 print("\n" + "="*50 + "\n")
 
-# 2. AGENTE PARA ORGANIZAR O CONTEÚDO COMO MANUAL DE OPERAÇÕES
+#CRIAREMOS UM AGENT PARA ORGANIZAR AS INFOS TRANSCRITAS
 print("=== INICIANDO ORGANIZAÇÃO DO CONTEÚDO ===")
 response = client.chat.completions.create(
     model="gpt-4o",
@@ -39,6 +39,7 @@ response = client.chat.completions.create(
     max_tokens=1000
 )
 
+#MOSTRAR A RESPOSTA DO AGENT
 resumo_estruturado = response.choices[0].message.content
 print("=== RESUMO ===")
 print(resumo_estruturado)
